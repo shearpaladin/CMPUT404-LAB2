@@ -27,7 +27,7 @@ def main():
             full_data = conn.recv(BUFFER_SIZE)
             time.sleep(0.5)
             conn.sendall(full_data)
-            print(str(full_data))
+            print(full_data)
             conn.close()
 
 if __name__ == "__main__":
