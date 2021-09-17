@@ -60,7 +60,7 @@ def main():
                 conn.send(data)
 
             conn.close()
-                
+
 
 if __name__ == "__main__":
     main()
