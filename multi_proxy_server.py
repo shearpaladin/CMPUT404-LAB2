@@ -31,7 +31,7 @@ def handle_request(addr, conn, proxy_end):
     proxy_end.shutdown(socket.SHUT_WR)
 
     #recieve data and responsd back to client
-    data = proxy_end.revc(BUFFER_SIZE)
+    data = proxy_end.recv(BUFFER_SIZE)
     print(f"Transferring recieved data {data} to client")
     conn.send(data)
 
@@ -53,19 +53,20 @@ def main():
             conn, addr = s.accept()
             print("Connected by", addr)
 
-        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as proxy_end:
-            print("Connecting to Google")
-            remote_ip = get_remote_ip(extern_host)
+            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as proxy_end:
+                print("Connecting to Google")
+                remote_ip = get_remote_ip(extern_host)
 
-            #connect to proxy_end
-            proxy_end.connect((remote_ip, port))
+                #connect to proxy_end
+                proxy_end.connect((remote_ip, port))
 
-            p = Process(target=handle_request, args=(addr, conn, proxy_end))
-            p.daemon = True
-            p.start()
-            print("Started process", p)
+                p = Process(target=handle_request, args=(addr, conn, proxy_end))
+                p.daemon = True
+                p.start()
+                print("Started process", p)
 
-        conn.close()
+            conn.close()
+        
 
 
 
