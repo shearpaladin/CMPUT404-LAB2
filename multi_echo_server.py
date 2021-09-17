@@ -12,6 +12,7 @@ def main():
 
     # create socket, bind, and set to listening mode
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        print("Starting echo server")
         # allow reused addresses
         s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         s.bind((HOST, PORT))
@@ -36,7 +37,7 @@ def handle_echo(addr, conn):
     # Send all data and close connection\
     print(full_data)
     conn.sendall(full_data)
-    conn.shutdown(socket.SHUT_RDWR)
+    conn.shutdown(socket.SHUT_WR)
     conn.close()
 
 if __name__ == "__main__":

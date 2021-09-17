@@ -46,7 +46,7 @@ def main():
         # allow reused addresses
         s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         s.bind((HOST, PORT))
-        s.listen(1)
+        s.listen(2)
 
         #continuously listen for connections
         while True:
@@ -66,7 +66,7 @@ def main():
                 print("Started process", p)
 
             conn.close()
-        
+
 
 
 
